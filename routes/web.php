@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/activity', function () {
     return view('activity');
-});
+})->name('activity');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
