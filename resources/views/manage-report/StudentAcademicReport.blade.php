@@ -1,19 +1,30 @@
 <x-app-layout>
-
     <div class="max-w-4xl mx-auto bg-white p-6 shadow rounded">
         <header class="text-center mb-4">
             <h1 class="text-2xl font-bold">LAPORAN AKADEMIK PELAJAR</h1>
             <div class="flex justify-center space-x-4 mt-4">
-                <select class="border p-2">
-                    <option value="2022/2023">2022/2023</option>
-                </select>
-                <select class="border p-2">
-                    <option value="5">5</option>
-                </select>
-                <select class="border p-2">
-                    <option value="BESTARI">BESTARI</option>
-                </select>
-                <input type="text" placeholder="ALI BIN ABU" class="border p-2">
+                <div>
+                    <label for="academic-session" class="block text-sm font-medium text-gray-700">Sesi Akademik</label>
+                    <select id="academic-session" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="2022/2023">2022/2023</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="year" class="block text-sm font-medium text-gray-700">Tahun</label>
+                    <select id="year" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="class" class="block text-sm font-medium text-gray-700">Kelas</label>
+                    <select id="class" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="BESTARI">BESTARI</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="student-name" class="block text-sm font-medium text-gray-700">Nama</label>
+                    <input type="text" id="student-name" placeholder="ALI BIN ABU" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
             </div>
         </header>
 
@@ -106,5 +117,4 @@
             </div>
         </div>
     </div>
-
 </x-app-layout>

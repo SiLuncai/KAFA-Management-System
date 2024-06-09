@@ -18,8 +18,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/exam-slip', function () {
-    return view('reporting.exam-slip');
+Route::get('/StudentAcademicReport', function () {
+    return view('manage-report.StudentAcademicReport');
+});
+
+Route::get('/ClassAcademicReport', function () {
+    return view('manage-report.ClassAcademicReport');
+});
+
+Route::get('/YearAcademicReport', function () {
+    return view('manage-report.YearAcademicReport');
+});
+
+Route::get('/ActivityReportList', function () {
+    return view('manage-report.ActivityReportList');
+});
+
+Route::get('/ActivityReport', function () {
+    return view('manage-report.ActivityReport');
+});
+
+Route::get('/ActivityReportForm', function () {
+    return view('manage-report.ActivityReportForm');
 });
 
 Route::get('/dashboard', function () {
