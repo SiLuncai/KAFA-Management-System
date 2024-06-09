@@ -40,7 +40,7 @@
         <li class="mb-2">
             <!-- Dark green button around Settings link -->
             <div class="bg-green-900 rounded-md p-2">
-                <a class="text-white" href="{{ route('activity') }}">Activity</a>
+                <a class="text-white" href="{{ route('activity.getData') }}">Activity</a>
             </div>
         </li>
         <!-- Logout button -->
