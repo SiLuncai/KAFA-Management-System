@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('parentID');
             $table->string('parentIC');
             $table->double('householdIncome');
+            $table->foreignId('userID')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

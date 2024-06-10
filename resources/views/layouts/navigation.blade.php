@@ -3,9 +3,9 @@
 <nav class=" sticky top-0 bg-green-500 shadow-lg min-h-screen">  
     <div class="sticky top-0">
     <!-- Logo (centered) -->
-    <div class="flex items-center justify-center bg-white w-36 rounded-full h-36 ">
-        <a class="text-gray-800 text-xl font-bold" href="#">
-            <img src="download.png" alt="Your Website Logo" class="h-17 w-16">
+    <div>
+        <a href="/">
+            <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
         </a>
     </div>
 

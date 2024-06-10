@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('teacherID');
             $table->string('teacherName');
             $table->string('teachingHistory');
+            $table->foreignId('userID')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

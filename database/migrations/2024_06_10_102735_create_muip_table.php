@@ -15,6 +15,7 @@ class CreateMuipTable extends Migration
         Schema::create('muip', function (Blueprint $table) {
             $table->bigIncrements('muipID');
             $table->string('position');
+            $table->foreignId('userID')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
