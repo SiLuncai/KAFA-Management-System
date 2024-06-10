@@ -50,4 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+Route::post('/reports/classes', [ReportController::class, 'getClass'])->name('reports.classes');
+Route::post('/reports/students', [ReportController::class, 'getStudents'])->name('reports.students');
+Route::post('/reports/generate', [ReportController::class, 'generateReport'])->name('reports.generate');
+
 require __DIR__.'/auth.php';

@@ -13,12 +13,12 @@ class Activity extends Model
         'name',
         'date',
         'time',
-        'involvement', // Assuming this corresponds to 'studentInvolved'
-        'location',    // Assuming this corresponds to 'venue'
-        'participant_count',
-        'impact',
-        'budget',
-        'created_at',
-        'updated_at',
+        'venue',
+        'studentInvolved',
     ];
+
+    public function finalActivityReports()
+    {
+        return $this->hasMany(FinalActivityReport::class, 'activity_id');
+    }
 }

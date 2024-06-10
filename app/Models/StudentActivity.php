@@ -13,4 +13,14 @@ class StudentActivity extends Model
         'student_id',
         'activity_id',
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
+
+    public function activity()
+    {
+        return $this->belongsTo(Activity::class, 'activity_id');
+    }
 }

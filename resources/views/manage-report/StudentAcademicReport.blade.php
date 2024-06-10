@@ -2,36 +2,42 @@
     <div class="max-w-4xl mx-auto bg-white p-6 shadow rounded">
         <header class="text-center mb-4">
             <h1 class="text-2xl font-bold">LAPORAN AKADEMIK PELAJAR</h1>
-            <div class="flex justify-center space-x-4 mt-4">
-                <div>
+            <form id="filter-form" action="{{ route('reports.generate') }}" method="POST" class="grid grid-cols-4 gap-4 mt-4">
+                @csrf
+                <div class="col-span-1">
                     <label for="academic-session" class="block text-sm font-medium text-gray-700">Sesi Akademik</label>
-                    <select id="academic-session" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <select id="academic-session" name="academic_session" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option value="2022/2023">2022/2023</option>
                     </select>
                 </div>
-                <div>
+                <div class="col-span-1">
                     <label for="year" class="block text-sm font-medium text-gray-700">Tahun</label>
-                    <select id="year" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="5">5</option>
+                    <select id="year" name="year_id" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">Pilih tahun</option>
+                        @foreach($years as $year)
+                            <option value="{{ $year->id }}">{{ $year->name }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <div>
+                <div class="col-span-1">
                     <label for="class" class="block text-sm font-medium text-gray-700">Kelas</label>
-                    <select id="class" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="BESTARI">BESTARI</option>
+                    <select id="class" name="class_id" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" disabled>
+                        <option value="">Pilih kelas</option>
                     </select>
                 </div>
-                <div>
+                <div class="col-span-1">
                     <label for="student-name" class="block text-sm font-medium text-gray-700">Nama</label>
-                    <input type="text" id="student-name" placeholder="ALI BIN ABU" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <select id="student-name" name="student_id" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" disabled>
+                        <option value="">Pilih nama pelajar</option>
+                    </select>
                 </div>
-            </div>
+                <div class="col-span-4 text-center my-4">
+                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded" disabled>Paparan</button>
+                </div>
+            </form>
         </header>
 
-        <div class="text-center my-4">
-            <button class="bg-blue-500 text-white py-2 px-4 rounded">Paparan</button>
-        </div>
-
+        @if(isset($student))
         <div class="border-t-2 border-gray-200 mt-4 pt-4">
             <div class="text-center mb-4">
                 <h2 class="text-xl font-semibold">Majlis Ugama Islam Dan Adat Resam Melayu Pahang (MUIP)</h2>
@@ -39,11 +45,11 @@
             </div>
 
             <div class="text-left mb-4">
-                <p>NO. KP / SIJIL LAHIR: 021215060103</p>
-                <p>NAMA: RASYIDAH BINTI MOHD NOOR</p>
-                <p>TAHUN: 5</p>
-                <p>KELAS: BESTARI</p>
-                <p>SAR AR RAUDHAH TANJUNG LUMPUR</p>
+                <p>NO. KP / SIJIL LAHIR: {{ $student->myKidNo }}</p>
+                <p>NAMA: {{ $student->name }}</p>
+                <p>TAHUN: {{ $student->year->name }}</p>
+                <p>KELAS: {{ $student->class->name }}</p>
+                <p>{{ $student->school->name }}</p>
             </div>
 
             <table class="w-full border-collapse border border-gray-300 mb-4">
@@ -56,59 +62,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="border border-gray-300 p-2 text-center">1.</td>
-                        <td class="border border-gray-300 p-2">Al-Quran</td>
-                        <td class="border border-gray-300 p-2 text-center">85</td>
-                        <td class="border border-gray-300 p-2 text-center">A</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 p-2 text-center">2.</td>
-                        <td class="border border-gray-300 p-2">Tahfiz Al-Quran</td>
-                        <td class="border border-gray-300 p-2 text-center">90</td>
-                        <td class="border border-gray-300 p-2 text-center">A</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 p-2 text-center">3.</td>
-                        <td class="border border-gray-300 p-2">Bahasa Arab</td>
-                        <td class="border border-gray-300 p-2 text-center">83</td>
-                        <td class="border border-gray-300 p-2 text-center">A</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 p-2 text-center">4.</td>
-                        <td class="border border-gray-300 p-2">Sirah</td>
-                        <td class="border border-gray-300 p-2 text-center">75</td>
-                        <td class="border border-gray-300 p-2 text-center">B</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 p-2 text-center">5.</td>
-                        <td class="border border-gray-300 p-2">Jawi & Khat</td>
-                        <td class="border border-gray-300 p-2 text-center">95</td>
-                        <td class="border border-gray-300 p-2 text-center">A</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 p-2 text-center">6.</td>
-                        <td class="border border-gray-300 p-2">Ibadah</td>
-                        <td class="border border-gray-300 p-2 text-center">80</td>
-                        <td class="border border-gray-300 p-2 text-center">A</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 p-2 text-center">7.</td>
-                        <td class="border border-gray-300 p-2">Aqidah</td>
-                        <td class="border border-gray-300 p-2 text-center">73</td>
-                        <td class="border border-gray-300 p-2 text-center">B</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 p-2 text-center">8.</td>
-                        <td class="border border-gray-300 p-2">Adab</td>
-                        <td class="border border-gray-300 p-2 text-center">83</td>
-                        <td class="border border-gray-300 p-2 text-center">A</td>
-                    </tr>
+                    @foreach($student->subjectResults as $index => $result)
+                        <tr>
+                            <td class="border border-gray-300 p-2 text-center">{{ $index + 1 }}.</td>
+                            <td class="border border-gray-300 p-2">{{ $result->subject->name }}</td>
+                            <td class="border border-gray-300 p-2 text-center">{{ $result->marks }}</td>
+                            <td class="border border-gray-300 p-2 text-center">{{ $result->grade }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 
             <div class="text-left mb-4">
-                <p>NAMA GURU KELAS: NOORIHAN BINTI HADI</p>
+                <p>NAMA GURU KELAS: [Teacher's Name]</p>
                 <p>KEPUTUSAN: LULUS</p>
             </div>
 
@@ -116,5 +82,80 @@
                 <button class="bg-gray-500 text-white py-2 px-4 rounded" onclick="window.print()">Cetak</button>
             </div>
         </div>
+        @else
+        <div class="text-center mt-8">
+            <p class="text-gray-500">DATA TIDAK DIJUMPAI</p>
+        </div>
+        @endif
     </div>
+
+    <script>
+        document.getElementById('year').addEventListener('change', function() {
+            const yearId = this.value;
+            const classSelect = document.getElementById('class');
+            const studentSelect = document.getElementById('student-name');
+            classSelect.innerHTML = '<option value="">Pilih kelas</option>';
+            studentSelect.innerHTML = '<option value="">Pilih nama pelajar</option>';
+            studentSelect.disabled = true;
+            document.querySelector('button[type="submit"]').disabled = true;
+
+            if (yearId) {
+                fetch('{{ route('reports.classes') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ year_id: yearId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    classSelect.disabled = false;
+                    data.forEach(classItem => {
+                        const option = document.createElement('option');
+                        option.value = classItem.id;
+                        option.textContent = classItem.name;
+                        classSelect.appendChild(option);
+                    });
+                });
+            } else {
+                classSelect.disabled = true;
+            }
+        });
+
+        document.getElementById('class').addEventListener('change', function() {
+            const classId = this.value;
+            const studentSelect = document.getElementById('student-name');
+            studentSelect.innerHTML = '<option value="">Pilih nama pelajar</option>';
+            document.querySelector('button[type="submit"]').disabled = true;
+
+            if (classId) {
+                fetch('{{ route('reports.students') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ class_id: classId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    studentSelect.disabled = false;
+                    data.forEach(student => {
+                        const option = document.createElement('option');
+                        option.value = student.id;
+                        option.textContent = student.name;
+                        studentSelect.appendChild(option);
+                    });
+                });
+            } else {
+                studentSelect.disabled = true;
+            }
+        });
+
+        document.getElementById('student-name').addEventListener('change', function() {
+            const studentId = this.value;
+            document.querySelector('button[type="submit"]').disabled = !studentId;
+        });
+    </script>
 </x-app-layout>

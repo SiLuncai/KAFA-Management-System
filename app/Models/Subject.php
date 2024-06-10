@@ -12,4 +12,9 @@ class Subject extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function subjectResults()
+    {
+        return $this->hasMany(SubjectResult::class, 'subject_id');
+    }
 }

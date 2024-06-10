@@ -18,8 +18,8 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('gender');
             $table->string('myKidNo')->unique();
-            $table->decimal('weight', 3, 2);
-            $table->decimal('height', 3, 2);
+            $table->decimal('weight', 5, 2);
+            $table->decimal('height', 5, 2);
             $table->string('disability');
             $table->string('allergy');
             $table->string('diseaseType');

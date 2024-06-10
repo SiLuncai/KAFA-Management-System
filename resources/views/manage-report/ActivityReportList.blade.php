@@ -1,4 +1,9 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-white dark:text-gray-200 leading-tight"></h2>
+        {{ __('Manage Report') }}
+    </x-slot>
+
     <div class="bg-gray-100 p-4">
         <div class="max-w-4xl mx-auto bg-white p-6 shadow rounded">
             <header class="text-center mb-4">
@@ -36,8 +41,8 @@
                                 <td class="border border-gray-300 p-2">{{ $activity->name }}</td>
                                 <td class="border border-gray-300 p-2 text-center">{{ \Carbon\Carbon::parse($activity->date)->format('M d') }}</td>
                                 <td class="border border-gray-300 p-2 text-center">{{ \Carbon\Carbon::parse($activity->time)->format('g:i a') }}</td>
-                                <td class="border border-gray-300 p-2 text-center">{{ $activity->involvement }}</td>
-                                <td class="border border-gray-300 p-2 text-center">{{ $activity->location }}</td>
+                                <td class="border border-gray-300 p-2 text-center">{{ $activity->studentInvolved }}</td>
+                                <td class="border border-gray-300 p-2 text-center">{{ $activity->venue }}</td>
                                 <td class="border border-gray-300 p-2 text-center"><button class="bg-blue-500 text-white py-1 px-2 rounded">Hantar Laporan</button></td>
                             </tr>
                         @endforeach

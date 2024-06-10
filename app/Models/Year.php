@@ -14,4 +14,9 @@ class Year extends Model
         'totalStudentYear',
         'session',
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'year_id');
+    }
 }

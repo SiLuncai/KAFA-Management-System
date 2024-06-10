@@ -23,5 +23,34 @@ class Student extends Model
         'year_id',
         'exam_id',
     ];
-}
 
+    public function school()
+    {
+        return $this->belongsTo(School::class, 'school_id');
+    }
+
+    public function class()
+    {
+        return $this->belongsTo(ClassModel::class, 'classes_id');
+    }
+
+    public function year()
+    {
+        return $this->belongsTo(Year::class, 'year_id');
+    }
+
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class, 'exam_id');
+    }
+
+    public function subjectResults()
+    {
+        return $this->hasMany(SubjectResult::class, 'student_id');
+    }
+
+    public function studentActivities()
+    {
+        return $this->hasMany(StudentActivity::class, 'student_id');
+    }
+}

@@ -14,5 +14,9 @@ class School extends Model
         'district',
         'totalStudentSchool',
     ];
-}
 
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'school_id');
+    }
+}

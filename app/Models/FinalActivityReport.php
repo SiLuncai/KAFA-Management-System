@@ -10,10 +10,13 @@ class FinalActivityReport extends Model
     use HasFactory;
 
     protected $fillable = [
-        'activity_id',
-        'student_id',
         'impact',
         'budget',
         'date_submitted',
     ];
+
+    public function activity()
+    {
+        return $this->belongsTo(Activity::class, 'activity_id');
+    }
 }

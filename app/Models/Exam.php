@@ -13,4 +13,14 @@ class Exam extends Model
         'examType',
         'updateExamStats',
     ];
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'exam_id');
+    }
+
+    public function subjectResults()
+    {
+        return $this->hasMany(SubjectResult::class, 'exam_id');
+    }
 }

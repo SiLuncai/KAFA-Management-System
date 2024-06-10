@@ -19,6 +19,7 @@ class CreateSubjectResultsTable extends Migration
             $table->unsignedBigInteger('subject_id'); // Foreign key column (implementation to be added manually)
             $table->integer('marks');
             $table->string('grade');
+            $table->string('updateStudentStats');
             $table->unsignedBigInteger('exam_id'); // Foreign key column (implementation to be added manually)
             $table->timestamps();
         });

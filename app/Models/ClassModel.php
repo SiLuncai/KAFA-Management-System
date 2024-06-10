@@ -15,4 +15,9 @@ class ClassModel extends Model
     ];
 
     protected $table = 'classes'; // Specifying the table name since 'Class' is a reserved word in PHP
+
+    public function students()
+    {
+        return $this->hasMany(Student::class, 'classes_id');
+    }
 }
