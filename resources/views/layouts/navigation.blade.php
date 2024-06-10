@@ -17,7 +17,7 @@
                 <a class="text-white" href="{{ route('dashboard') }}">Dashboard</a>
             </div>
         </li>
-        
+
         <li class="mb-2">
             <!-- Dark green button around Profile link -->
             <div class="bg-green-900 rounded-md p-2">
@@ -41,6 +41,13 @@
             <!-- Dark green button around Settings link -->
             <div class="bg-green-900 rounded-md p-2">
                 <a class="text-white" href="#">Settings</a>
+            </div>
+        </li>
+        </li>
+        <li class="mb-2">
+            <!-- Dark green button around Settings link -->
+            <div class="bg-green-900 rounded-md p-2">
+                <a class="text-white" href="{{ route('activity.getData') }}">Activity</a>
             </div>
         </li>
         <!-- Logout button -->
