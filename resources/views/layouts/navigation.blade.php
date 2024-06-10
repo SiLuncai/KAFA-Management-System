@@ -1,6 +1,6 @@
 <!-- navigation.blade.php -->
 
-<nav class=" sticky top-0 bg-green-500 shadow-lg">  
+<nav class=" sticky top-0 bg-green-500 shadow-lg min-h-screen">  
     <div class="sticky top-0">
     <!-- Logo (centered) -->
     <div class="flex items-center justify-center bg-white w-36 rounded-full h-36 ">
