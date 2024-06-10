@@ -31,38 +31,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="border border-gray-300 p-2">Sirah Class Tuition</td>
-                            <td class="border border-gray-300 p-2 text-center">Sep 18</td>
-                            <td class="border border-gray-300 p-2 text-center">6:00 p.m - 6:30 p.m</td>
-                            <td class="border border-gray-300 p-2 text-center">Standard 6</td>
-                            <td class="border border-gray-300 p-2 text-center">Al-Khawarizmy Hall</td>
-                            <td class="border border-gray-300 p-2 text-center"><button class="bg-blue-500 text-white py-1 px-2 rounded">Hantar Laporan</button></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-gray-300 p-2">KAFA Open Day</td>
-                            <td class="border border-gray-300 p-2 text-center">Sep 22</td>
-                            <td class="border border-gray-300 p-2 text-center">7:30 a.m - 5:30 p.m</td>
-                            <td class="border border-gray-300 p-2 text-center">All Students</td>
-                            <td class="border border-gray-300 p-2 text-center">School Field</td>
-                            <td class="border border-gray-300 p-2 text-center"><button class="bg-blue-500 text-white py-1 px-2 rounded">Hantar Laporan</button></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-gray-300 p-2">KAFA Annual Sports Day</td>
-                            <td class="border border-gray-300 p-2 text-center">Oct 22</td>
-                            <td class="border border-gray-300 p-2 text-center">7:30 a.m - 12:30 p.m</td>
-                            <td class="border border-gray-300 p-2 text-center">All Students</td>
-                            <td class="border border-gray-300 p-2 text-center">School Field</td>
-                            <td class="border border-gray-300 p-2 text-center"><button class="bg-blue-500 text-white py-1 px-2 rounded">Hantar Laporan</button></td>
-                        </tr>
-                        <tr>
-                            <td class="border border-gray-300 p-2">Academic Day</td>
-                            <td class="border border-gray-300 p-2 text-center">Dec 22</td>
-                            <td class="border border-gray-300 p-2 text-center">7:30 a.m - 12:30 p.m</td>
-                            <td class="border border-gray-300 p-2 text-center">Standard 5 & 6</td>
-                            <td class="border border-gray-300 p-2 text-center">Al-Khawarizmy Hall</td>
-                            <td class="border border-gray-300 p-2 text-center"><button class="bg-blue-500 text-white py-1 px-2 rounded">Hantar Laporan</button></td>
-                        </tr>
+                        @foreach ($activities as $activity)
+                            <tr>
+                                <td class="border border-gray-300 p-2">{{ $activity->name }}</td>
+                                <td class="border border-gray-300 p-2 text-center">{{ \Carbon\Carbon::parse($activity->date)->format('M d') }}</td>
+                                <td class="border border-gray-300 p-2 text-center">{{ \Carbon\Carbon::parse($activity->time)->format('g:i a') }}</td>
+                                <td class="border border-gray-300 p-2 text-center">{{ $activity->involvement }}</td>
+                                <td class="border border-gray-300 p-2 text-center">{{ $activity->location }}</td>
+                                <td class="border border-gray-300 p-2 text-center"><button class="bg-blue-500 text-white py-1 px-2 rounded">Hantar Laporan</button></td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
 

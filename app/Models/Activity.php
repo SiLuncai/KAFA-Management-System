@@ -13,7 +13,12 @@ class Activity extends Model
         'name',
         'date',
         'time',
-        'venue',
-        'studentInvolved',
+        'involvement', // Assuming this corresponds to 'studentInvolved'
+        'location',    // Assuming this corresponds to 'venue'
+        'participant_count',
+        'impact',
+        'budget',
+        'created_at',
+        'updated_at',
     ];
 }

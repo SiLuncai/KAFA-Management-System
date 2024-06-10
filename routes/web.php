@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +30,7 @@ Route::get('/ClassAcademicReport', function () {
 Route::get('/YearAcademicReport', function () {
     return view('manage-report.YearAcademicReport');
 });
-
-Route::get('/ActivityReportList', function () {
-    return view('manage-report.ActivityReportList');
-});
+Route::get('/ActivityReportList', [ReportController::class, 'index']);
 
 Route::get('/ActivityReport', function () {
     return view('manage-report.ActivityReport');
