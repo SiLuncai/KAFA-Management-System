@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\StudentResultController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,33 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/CheckSlip', function () {
+    return view('ManageStudentResult.CheckSlip');
+});
+
+Route::get('/ExamList', function () {
+    return view('ManageStudentResult.ExamList');
+});
+
+Route::get('/StudentList', function () {
+    return view('ManageStudentResult.StudentList');
+});
+
+Route::get('/ChooseExam', function () {
+    return view('ManageStudentResult.ChooseExam');
+});
+
+Route::get('/ExamSlip', function () {
+    return view('ManageStudentResult.ExamSlip');
+});
+
+Route::get('/example', function () {
+    return view('ManageStudentResult.example');
+});
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
