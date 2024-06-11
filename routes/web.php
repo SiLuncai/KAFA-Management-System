@@ -30,6 +30,7 @@ Route::get('/ClassAcademicReport', function () {
 Route::get('/YearAcademicReport', function () {
     return view('manage-report.YearAcademicReport');
 });
+
 Route::get('/ActivityReportList', [ReportController::class, 'index']);
 
 Route::get('/ActivityReport', function () {
@@ -54,4 +55,10 @@ Route::get('/get-classes/{yearId}', [ReportController::class, 'getClassesByYear'
 Route::get('/get-students/{classId}', [ReportController::class, 'getStudentsByClass'])->name('get-students');
 Route::match(['get', 'post'], '/student-academic-report', [ReportController::class, 'showStudentAcademicReport'])->name('student-academic-report');
 Route::match(['get', 'post'], '/class-academic-report', [ReportController::class, 'showClassAcademicReport'])->name('class-academic-report');
+Route::get('/year-academic-report', [ReportController::class, 'getYearAcademicReport'])->name('year-academic-report-get');
+Route::post('/year-academic-report', [ReportController::class, 'showYearAcademicReport'])->name('year-academic-report');
+Route::get('/activity-reports', [ReportController::class, 'getActivityReports'])->name('activity-reports');
+Route::get('/activity-reports/{id}', [ReportController::class, 'getActivityReportForm'])->name('activity-report-form');
+Route::post('/activity-reports/{id}', [ReportController::class, 'saveActivityReport'])->name('save-activity-report');
+
 require __DIR__.'/auth.php';

@@ -1,70 +1,35 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white dark:text-gray-200 leading-tight"></h2>
-        {{ __('Manage Report') }}
-    </x-slot>
-
-    <div class="bg-gray-100 p-4">
-        <div class="max-w-4xl mx-auto bg-white p-6 shadow rounded">
-            <header class="text-center mb-4">
-                <h1 class="text-2xl font-bold">LAPORAN AKHIR AKTIVITI</h1>
-                <div class="flex justify-center space-x-4 mt-4">
-                    <div>
-                        <label for="academic-session" class="block text-sm font-medium text-gray-700">Sesi Akademik</label>
-                        <select id="academic-session" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <option value="2022/2023">2022/2023</option>
-                        </select>
-                    </div>
-                    <button class="bg-blue-500 text-white py-2 px-4 rounded">Paparan</button>
-                </div>
-            </header>
-
-            <div class="border-t-2 border-gray-200 mt-4 pt-4">
-                <div class="text-left mb-4">
-                    <p class="font-semibold">AKTIVITI</p>
-                </div>
-
-                <table class="w-full border-collapse border border-gray-300 mb-4">
-                    <thead>
-                        <tr>
-                            <th class="border border-gray-300 p-2">Aktiviti</th>
-                            <th class="border border-gray-300 p-2">Tarikh</th>
-                            <th class="border border-gray-300 p-2">Masa</th>
-                            <th class="border border-gray-300 p-2">Pengelibatan</th>
-                            <th class="border border-gray-300 p-2">Tempat</th>
-                            <th class="border border-gray-300 p-2">Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($activities as $activity)
-                            <tr>
-                                <td class="border border-gray-300 p-2">{{ $activity->name }}</td>
-                                <td class="border border-gray-300 p-2 text-center">{{ \Carbon\Carbon::parse($activity->date)->format('M d') }}</td>
-                                <td class="border border-gray-300 p-2 text-center">{{ \Carbon\Carbon::parse($activity->time)->format('g:i a') }}</td>
-                                <td class="border border-gray-300 p-2 text-center">{{ $activity->studentInvolved }}</td>
-                                <td class="border border-gray-300 p-2 text-center">{{ $activity->venue }}</td>
-                                <td class="border border-gray-300 p-2 text-center"><button class="bg-blue-500 text-white py-1 px-2 rounded">Hantar Laporan</button></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
-                <div class="flex justify-between items-center mt-4">
-                    <div class="flex space-x-2">
-                        <button class="bg-gray-300 text-gray-700 py-1 px-3 rounded">&lt;</button>
-                        <span>Page 1 of 1</span>
-                        <button class="bg-gray-300 text-gray-700 py-1 px-3 rounded">&gt;</button>
-                    </div>
-                    <div>
-                        <label for="rows-per-page" class="block text-sm font-medium text-gray-700">Rows per page</label>
-                        <select id="rows-per-page" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container mx-auto py-8">
+        <h1 class="text-2xl font-bold mb-4">LAPORAN AKHIR AKTIVITI</h1>
+    
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aktiviti</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tarikh</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Masa</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pengelibatan</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tempat</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tindakan</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                @foreach ($activities as $activity)
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <a href="{{ route('activity-report-form', $activity->id) }}" class="text-blue-500 hover:text-blue-700">{{ $activity->name }}</a>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $activity->date }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $activity->time }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $activity->studentInvolved }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $activity->venue }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <a href="{{ route('activity-report-form', $activity->id) }}" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Hantar Laporan</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-</x-app-layout>
+    </x-app-layout>
+    

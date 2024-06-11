@@ -7,6 +7,9 @@ use App\Models\ClassModel;
 use App\Models\Year;
 use App\Models\SubjectResult;
 use Illuminate\Http\Request;
+use App\Models\Activity;
+use App\Models\FinalActivityReport;
+
 
 class ReportController extends Controller
 {
@@ -89,8 +92,72 @@ class ReportController extends Controller
     
         return view('manage-report.ClassAcademicReport', compact('years', 'classDetails', 'students', 'resultsFound'));
     }
-    
 
+    public function getYearAcademicReport()
+    {
+        $years = Year::all();
+        return view('manage-report.YearAcademicReport', compact('years'));
+    }
     
+    public function showYearAcademicReport(Request $request)
+    {
+        $years = Year::all();
+        $students = [];
+        $resultsFound = false;
+    
+        if ($request->filled('year_id')) {
+            // Fetch students for the selected year
+            $students = Student::where('year_id', $request->year_id)->with('subjectResults')->get();
+    
+            // Compute average marks for each student
+            foreach ($students as $student) {
+                $totalMarks = $student->subjectResults->sum('marks');
+                $subjectCount = $student->subjectResults->count();
+                $student->average_marks = $subjectCount ? $totalMarks / $subjectCount : 0;
+            }
+    
+            // Sort students by average marks and assign rankings
+            $students = $students->sortByDesc('average_marks')->values();
+            foreach ($students as $index => $student) {
+                $student->ranking = $index + 1;
+            }
+    
+            $resultsFound = $students->isNotEmpty();
+        }
+    
+        return view('manage-report.YearAcademicReport', compact('years', 'students', 'resultsFound'));
+    }
+
+    public function getActivityReports()
+    {
+        $activities = Activity::all();
+        return view('manage-report.ActivityReportList', compact('activities'));
+    }
+
+    public function getActivityReportForm($id)
+    {
+        $activity = Activity::findOrFail($id);
+        return view('manage-report.ActivityReportForm', compact('activity'));
+    }
+
+    public function saveActivityReport(Request $request, $id)
+    {
+        $request->validate([
+            'impact' => 'required|string',
+            'budget' => 'required|numeric',
+            'date_submitted' => 'required|date',
+        ]);
+
+        FinalActivityReport::updateOrCreate(
+            ['activity_id' => $id],
+            [
+                'impact' => $request->impact,
+                'budget' => $request->budget,
+                'date_submitted' => $request->date_submitted,
+            ]
+        );
+
+        return redirect()->route('activity-reports')->with('success', 'Report saved successfully.');
+    }
 
 }
