@@ -1,161 +1,120 @@
 <x-app-layout>
-    <div class="max-w-4xl mx-auto bg-white p-6 shadow rounded">
-        <header class="text-center mb-4">
-            <h1 class="text-2xl font-bold">LAPORAN AKADEMIK PELAJAR</h1>
-            <form id="filter-form" action="{{ route('reports.generate') }}" method="POST" class="grid grid-cols-4 gap-4 mt-4">
-                @csrf
-                <div class="col-span-1">
-                    <label for="academic-session" class="block text-sm font-medium text-gray-700">Sesi Akademik</label>
-                    <select id="academic-session" name="academic_session" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        <option value="2022/2023">2022/2023</option>
-                    </select>
-                </div>
-                <div class="col-span-1">
-                    <label for="year" class="block text-sm font-medium text-gray-700">Tahun</label>
-                    <select id="year" name="year_id" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    <div class="container mx-auto py-8">
+        <h1 class="text-2xl font-bold mb-4">LAPORAN AKADEMIK PELAJAR</h1>
+    
+        <form action="{{ route('student-academic-report') }}" method="POST" id="filterForm">
+            @csrf
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                <div class="form-group">
+                    <label for="year_id" class="block text-sm font-medium text-gray-700">Tahun</label>
+                    <select name="year_id" id="year_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                         <option value="">Pilih tahun</option>
                         @foreach($years as $year)
-                            <option value="{{ $year->id }}">{{ $year->name }}</option>
+                            <option value="{{ $year->id }}" {{ request('year_id') == $year->id ? 'selected' : '' }}>{{ $year->name }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="col-span-1">
-                    <label for="class" class="block text-sm font-medium text-gray-700">Kelas</label>
-                    <select id="class" name="class_id" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" disabled>
+                <div class="form-group">
+                    <label for="class_id" class="block text-sm font-medium text-gray-700">Kelas</label>
+                    <select name="class_id" id="class_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                         <option value="">Pilih kelas</option>
                     </select>
                 </div>
-                <div class="col-span-1">
-                    <label for="student-name" class="block text-sm font-medium text-gray-700">Nama</label>
-                    <select id="student-name" name="student_id" class="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" disabled>
+                <div class="form-group">
+                    <label for="student_id" class="block text-sm font-medium text-gray-700">Nama</label>
+                    <select name="student_id" id="student_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                         <option value="">Pilih nama pelajar</option>
                     </select>
                 </div>
-                <div class="col-span-4 text-center my-4">
-                    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded" disabled>Paparan</button>
-                </div>
-            </form>
-        </header>
-
-        @if(isset($student))
-        <div class="border-t-2 border-gray-200 mt-4 pt-4">
-            <div class="text-center mb-4">
-                <h2 class="text-xl font-semibold">Majlis Ugama Islam Dan Adat Resam Melayu Pahang (MUIP)</h2>
-                <h3 class="text-lg font-medium">SLIP KEPUTUSAN - PEPERIKSAAN AKHIR TAHUN - 2023</h3>
             </div>
-
-            <div class="text-left mb-4">
-                <p>NO. KP / SIJIL LAHIR: {{ $student->myKidNo }}</p>
-                <p>NAMA: {{ $student->name }}</p>
-                <p>TAHUN: {{ $student->year->name }}</p>
-                <p>KELAS: {{ $student->class->name }}</p>
-                <p>{{ $student->school->name }}</p>
-            </div>
-
-            <table class="w-full border-collapse border border-gray-300 mb-4">
-                <thead>
-                    <tr>
-                        <th class="border border-gray-300 p-2">Bil</th>
-                        <th class="border border-gray-300 p-2">Mata Pelajaran</th>
-                        <th class="border border-gray-300 p-2">Markah</th>
-                        <th class="border border-gray-300 p-2">Gred</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($student->subjectResults as $index => $result)
+            <button type="submit" class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Papar</button>
+        </form>
+    
+        @if (isset($resultsFound) && $resultsFound)
+            <div class="mt-8">
+                <h2 class="text-xl font-semibold mb-2">SLIP KEPUTUSAN - PEPERIKSAAN AKHIR TAHUN - {{ $student->year->name }}</h2>
+                <p class="mb-1">No. KP / Sijil Lahir: {{ $student->myKidNo }}</p>
+                <p class="mb-1">Nama: {{ $student->name }}</p>
+                <p class="mb-1">Tahun: {{ $student->year->name }}</p>
+                <p class="mb-4">Kelas: {{ $student->class->name }}</p>
+    
+                <table class="min-w-full divide-y divide-gray-200 mb-4">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <td class="border border-gray-300 p-2 text-center">{{ $index + 1 }}.</td>
-                            <td class="border border-gray-300 p-2">{{ $result->subject->name }}</td>
-                            <td class="border border-gray-300 p-2 text-center">{{ $result->marks }}</td>
-                            <td class="border border-gray-300 p-2 text-center">{{ $result->grade }}</td>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bil</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mata Pelajaran</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Markah</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gred</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-            <div class="text-left mb-4">
-                <p>NAMA GURU KELAS: [Teacher's Name]</p>
-                <p>KEPUTUSAN: LULUS</p>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach ($subjectResults as $index => $result)
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $index + 1 }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $result->subject->name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $result->marks }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $result->grade }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+    
+                <p class="mb-2">Nama Guru Kelas: [Teacher's Name]</p>
+                <p class="mb-4">Keputusan: [Result]</p>
+                <button class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="window.print()">Cetak</button>
             </div>
-
-            <div class="text-center">
-                <button class="bg-gray-500 text-white py-2 px-4 rounded" onclick="window.print()">Cetak</button>
-            </div>
-        </div>
-        @else
-        <div class="text-center mt-8">
-            <p class="text-gray-500">DATA TIDAK DIJUMPAI</p>
-        </div>
+        @elseif (isset($resultsFound) && !$resultsFound)
+            <p class="mt-4">DATA TIDAK DIJUMPAI</p>
         @endif
     </div>
-
+    
     <script>
-        document.getElementById('year').addEventListener('change', function() {
-            const yearId = this.value;
-            const classSelect = document.getElementById('class');
-            const studentSelect = document.getElementById('student-name');
+    document.addEventListener('DOMContentLoaded', function () {
+        const yearSelect = document.getElementById('year_id');
+        const classSelect = document.getElementById('class_id');
+        const studentSelect = document.getElementById('student_id');
+    
+        yearSelect.addEventListener('change', function () {
+            fetchClasses(this.value);
+        });
+    
+        classSelect.addEventListener('change', function () {
+            fetchStudents(this.value);
+        });
+    
+        function fetchClasses(yearId) {
             classSelect.innerHTML = '<option value="">Pilih kelas</option>';
             studentSelect.innerHTML = '<option value="">Pilih nama pelajar</option>';
-            studentSelect.disabled = true;
-            document.querySelector('button[type="submit"]').disabled = true;
-
             if (yearId) {
-                fetch('{{ route('reports.classes') }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({ year_id: yearId })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    classSelect.disabled = false;
-                    data.forEach(classItem => {
-                        const option = document.createElement('option');
-                        option.value = classItem.id;
-                        option.textContent = classItem.name;
-                        classSelect.appendChild(option);
+                fetch(`/get-classes/${yearId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(classItem => {
+                            const option = document.createElement('option');
+                            option.value = classItem.id;
+                            option.textContent = classItem.name;
+                            classSelect.appendChild(option);
+                        });
                     });
-                });
-            } else {
-                classSelect.disabled = true;
             }
-        });
-
-        document.getElementById('class').addEventListener('change', function() {
-            const classId = this.value;
-            const studentSelect = document.getElementById('student-name');
+        }
+    
+        function fetchStudents(classId) {
             studentSelect.innerHTML = '<option value="">Pilih nama pelajar</option>';
-            document.querySelector('button[type="submit"]').disabled = true;
-
             if (classId) {
-                fetch('{{ route('reports.students') }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({ class_id: classId })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    studentSelect.disabled = false;
-                    data.forEach(student => {
-                        const option = document.createElement('option');
-                        option.value = student.id;
-                        option.textContent = student.name;
-                        studentSelect.appendChild(option);
+                fetch(`/get-students/${classId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(student => {
+                            const option = document.createElement('option');
+                            option.value = student.id;
+                            option.textContent = student.name;
+                            studentSelect.appendChild(option);
+                        });
                     });
-                });
-            } else {
-                studentSelect.disabled = true;
             }
-        });
-
-        document.getElementById('student-name').addEventListener('change', function() {
-            const studentId = this.value;
-            document.querySelector('button[type="submit"]').disabled = !studentId;
-        });
+        }
+    });
     </script>
-</x-app-layout>
+    </x-app-layout>
+    

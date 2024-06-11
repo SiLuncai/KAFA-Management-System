@@ -2,54 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Student;
-use App\Models\Year;
 use App\Models\ClassModel;
+use App\Models\Year;
+use App\Models\SubjectResult;
+use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function index()
+    // Function to show the form and display the report on the same page
+    public function showStudentAcademicReport(Request $request)
     {
-        // Fetch all available academic sessions and years
         $years = Year::all();
+        $classes = ClassModel::all();
+        $students = Student::all();
+        
+        $subjectResults = collect();
+        $student = null;
+        $resultsFound = false;
 
-        return view('manage-report.StudentAcademicReport', compact('years'));
+        if ($request->isMethod('post')) {
+            // Validate the request parameters
+            $request->validate([
+                'year_id' => 'required|exists:years,id',
+                'class_id' => 'required|exists:classes,id',
+                'student_id' => 'required|exists:students,id',
+            ]);
+
+            // Fetch the student details
+            $student = Student::with(['class', 'school', 'year', 'exam', 'subjectResults.subject'])
+                              ->findOrFail($request->student_id);
+
+            // Fetch the subject results for the selected student
+            $subjectResults = SubjectResult::where('student_id', $request->student_id)->get();
+
+            // Check if there are any results found
+            $resultsFound = $subjectResults->isNotEmpty();
+        }
+
+        return view('manage-report.StudentAcademicReport', compact('years', 'classes', 'students', 'student', 'subjectResults', 'resultsFound'));
     }
 
-    public function getClass(Request $request)
+    public function getClassesByYear($yearId)
     {
-        $year_id = $request->input('year_id');
-        $classes = ClassModel::where('year_id', $year_id)->get();
-
-        return response()->json($classes);
+        $classes = Student::where('year_id', $yearId)->distinct()->pluck('classes_id');
+        $classDetails = ClassModel::whereIn('id', $classes)->get();
+        return response()->json($classDetails);
     }
-
-    public function getStudents(Request $request)
+    
+    public function getStudentsByClass($classId)
     {
-        $class_id = $request->input('class_id');
-        $students = Student::where('classes_id', $class_id)->get();
-
+        $students = Student::where('classes_id', $classId)->get();
         return response()->json($students);
     }
 
-    public function generateReport(Request $request)
+    public function showClassAcademicReport(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'academic_session' => 'required',
-            'year_id' => 'required',
-            'class_id' => 'required',
-            'student_id' => 'required',
-        ]);
-
-        // Fetch the student
-        $student = Student::with(['school', 'class', 'year', 'exam', 'subjectResults.subject'])
-                          ->findOrFail($request->student_id);
-
-        // Fetch all available academic sessions and years for the form
         $years = Year::all();
-
-        return view('manage-report.StudentAcademicReport', compact('student', 'years'));
+        $classes = [];
+        $students = [];
+        $resultsFound = false;
+    
+        if ($request->filled('year_id') && $request->filled('class_id')) {
+            // Fetch distinct classes for the selected year
+            $classes = Student::where('year_id', $request->year_id)->distinct()->pluck('classes_id');
+            $classDetails = ClassModel::whereIn('id', $classes)->get();
+    
+            // Fetch students for the selected class
+            $students = Student::where('classes_id', $request->class_id)->with('subjectResults')->get();
+    
+            // Compute average marks for each student
+            foreach ($students as $student) {
+                $totalMarks = $student->subjectResults->sum('marks');
+                $subjectCount = $student->subjectResults->count();
+                $student->average_marks = $subjectCount ? $totalMarks / $subjectCount : 0;
+            }
+    
+            // Sort students by average marks and assign rankings
+            $students = $students->sortByDesc('average_marks')->values();
+            foreach ($students as $index => $student) {
+                $student->ranking = $index + 1;
+            }
+    
+            $resultsFound = $students->isNotEmpty();
+        }
+    
+        return view('manage-report.ClassAcademicReport', compact('years', 'classDetails', 'students', 'resultsFound'));
     }
+    
+
+    
+
 }

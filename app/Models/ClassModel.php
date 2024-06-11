@@ -21,3 +21,4 @@ class ClassModel extends Model
         return $this->hasMany(Student::class, 'classes_id');
     }
 }
+ 
