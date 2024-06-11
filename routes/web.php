@@ -57,8 +57,8 @@ Route::match(['get', 'post'], '/student-academic-report', [ReportController::cla
 Route::match(['get', 'post'], '/class-academic-report', [ReportController::class, 'showClassAcademicReport'])->name('class-academic-report');
 Route::get('/year-academic-report', [ReportController::class, 'getYearAcademicReport'])->name('year-academic-report-get');
 Route::post('/year-academic-report', [ReportController::class, 'showYearAcademicReport'])->name('year-academic-report');
-Route::get('/activity-reports', [ReportController::class, 'getActivityReports'])->name('activity-reports');
-Route::get('/activity-reports/{id}', [ReportController::class, 'getActivityReportForm'])->name('activity-report-form');
-Route::post('/activity-reports/{id}', [ReportController::class, 'saveActivityReport'])->name('save-activity-report');
+Route::get('/activity-reports', [ReportController::class, 'showActivityReportList'])->name('activity-report-list');
+Route::get('/activity-reports/{activityId}', [ReportController::class, 'showActivityReportForm'])->name('activity-report-form');
+Route::post('/activity-reports/{activityId}', [ReportController::class, 'storeActivityReport'])->name('activity-report-store');
 
 require __DIR__.'/auth.php';

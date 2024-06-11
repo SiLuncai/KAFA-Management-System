@@ -128,28 +128,29 @@ class ReportController extends Controller
         return view('manage-report.YearAcademicReport', compact('years', 'students', 'resultsFound'));
     }
 
-    public function getActivityReports()
+    public function showActivityReportList()
     {
         $activities = Activity::all();
         return view('manage-report.ActivityReportList', compact('activities'));
     }
 
-    public function getActivityReportForm($id)
+    public function showActivityReportForm($activityId)
     {
-        $activity = Activity::findOrFail($id);
-        return view('manage-report.ActivityReportForm', compact('activity'));
+        $activity = Activity::findOrFail($activityId);
+        $report = FinalActivityReport::where('activity_id', $activityId)->first();
+        return view('manage-report.ActivityReportForm', compact('activity', 'report'));
     }
 
-    public function saveActivityReport(Request $request, $id)
+    public function storeActivityReport(Request $request, $activityId)
     {
         $request->validate([
-            'impact' => 'required|string',
+            'impact' => 'required',
             'budget' => 'required|numeric',
             'date_submitted' => 'required|date',
         ]);
 
-        FinalActivityReport::updateOrCreate(
-            ['activity_id' => $id],
+        $report = FinalActivityReport::updateOrCreate(
+            ['activity_id' => $activityId],
             [
                 'impact' => $request->impact,
                 'budget' => $request->budget,
@@ -157,7 +158,8 @@ class ReportController extends Controller
             ]
         );
 
-        return redirect()->route('activity-reports')->with('success', 'Report saved successfully.');
+        return redirect()->route('activity-report-list')->with('success', 'Report saved successfully');
     }
-
 }
+
+
