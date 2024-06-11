@@ -27,20 +27,13 @@
         <li class="mb-2">
             <!-- Dark green button around Bulletin link -->
             <div class="bg-green-900 rounded-md p-2">
-                <a class="text-white" href="#">Bulletin</a>
+                <a class="text-white" href="{{ route('bulletins.index') }}">Bulletin</a>
             </div>
         </li>
         <li class="mb-2">
             <!-- Dark green button around Student Result link -->
             <div class="bg-green-900 rounded-md p-2">
                 <a class="text-white" href="{{ route('ManageStudentResult.searchExamList') }}">Student Result</a> 
-            </div>
-        </li>
-       
-        <li class="mb-2">
-            <!-- Dark green button around Settings link -->
-            <div class="bg-green-900 rounded-md p-2">
-                <a class="text-white" href="#">Settings</a>
             </div>
         </li>
         </li>

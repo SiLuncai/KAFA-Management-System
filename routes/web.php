@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\StudentResultController;
+use App\Http\Controllers\BulletinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,41 @@ use App\Http\Controllers\StudentResultController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Index Route
+Route::get('/bulletins', [BulletinController::class, 'index'])->name('bulletins.index');
+
+// Create Route
+Route::get('/bulletins/create', [BulletinController::class, 'create'])->name('bulletins.create');
+
+// Store Route
+Route::post('/bulletins', [BulletinController::class, 'store'])->name('bulletins.store');
+
+// Show Route
+Route::get('/bulletins/{bulletinID}', [BulletinController::class, 'show'])->name('bulletins.show');
+
+// Like Bulletin Route
+Route::post('/bulletins/{bulletinID}/like', [BulletinController::class, 'likeBulletin'])->name('bulletins.like');
+
+// Comment Bulletin Route
+Route::post('/bulletins/{bulletinID}/comment', [BulletinController::class, 'commentBulletin'])->name('bulletins.comment');
+
+// Edit Bulletin Route
+Route::get('/bulletins/edit/{bulletin}', [BulletinController::class, 'edit'])->name('bulletins.edit');
+
+// Update Bulletin Route
+Route::post('/bulletins/{bulletinID}', [BulletinController::class, 'update'])->name('bulletins.update');
+
+// Delete Bulletin Route
+Route::delete('/bulletins/{bulletin}', [BulletinController::class, 'destroy'])->name('bulletins.destroy');
+
+// Like Bulletin Route
+Route::post('/bulletins/{bulletinID}/like', [BulletinController::class, 'likeBulletin'])->name('bulletins.like');
+
+// Comment Bulletin Route
+Route::post('/bulletins/{bulletinID}/comment', [BulletinController::class, 'commentBulletin'])->name('bulletins.comment');
+
+
 
 Route::get('/CheckSlip', function () {
     return view('ManageStudentResult.CheckSlip');
