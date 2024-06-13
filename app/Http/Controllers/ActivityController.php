@@ -28,7 +28,7 @@ class ActivityController extends Controller
 
     public function create()
     {
-        return view('ManageKAFAActivites.addActivity');
+        return view('ManageKAFAActivities.addActivity');
     }
 
     public function store(Request $request)
