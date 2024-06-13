@@ -3,7 +3,7 @@
         <!-- Logo (centered) -->
         <div class="flex justify-center py-4">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <x-application-logo class="w-20 h-10 fill-current text-gray-500" />
             </a>
         </div>
 
@@ -56,6 +56,30 @@
                         <a class="text-white" href="{{ route('activity.getDataAdmin') }}">Manage Activity</a>
                     </div>
                 </li>
+                <li class="mb-2">
+                    <!-- Dark green button around Settings link -->
+                    <div class="bg-green-900 rounded-md p-2">
+                        <a class="text-white" href="{{ route('activity.getDataAdmin') }}">Manage Report</a>
+                    </div>
+                </li>
+                <li class="mb-2">
+                    <!-- Dark green button around Settings link -->
+                    <div class="bg-green-900 rounded-md p-2">
+                        <a class="text-white" href="{{ route('student-academic-report') }}">Student Report</a>
+                    </div>
+                </li>
+                <li class="mb-2">
+                    <!-- Dark green button around Settings link -->
+                    <div class="bg-green-900 rounded-md p-2">
+                        <a class="text-white" href="{{ route('class-academic-report') }}">Class Report</a>
+                    </div>
+                </li>
+                <li class="mb-2">
+                    <!-- Dark green button around Settings link -->
+                    <div class="bg-green-900 rounded-md p-2">
+                        <a class="text-white" href="{{ route('year-academic-report') }}">Year Report</a>
+                    </div>
+                </li>
             @endif
 
             @if (Auth::check() && Auth::user()->role === 'teachers')
@@ -78,7 +102,32 @@
                     </div>
                 </li>
             @endif
-
+            @if (Auth::check() && Auth::user()->role === 'muip')
+            <li class="mb-2">
+                <!-- Dark green button around Classroom Management link -->
+                <div class="bg-green-900 rounded-md p-2">
+                    <a class="text-white" href="{{ route('activity.getData') }}">Manage Activity</a>
+                </div>
+            </li>
+            <li class="mb-2">
+                <!-- Dark green button around Lesson Plans link -->
+                <div class="bg-green-900 rounded-md p-2">
+                    <a class="text-white" href="{{ route('bulletins.index') }}">Manage Bulletin</a>
+                </div>
+            </li>
+            <li class="mb-2">
+                <!-- Dark green button around Bulletin link -->
+                <div class="bg-green-900 rounded-md p-2">
+                    <a class="text-white" href="{{ route('try.index') }}">Manage Result</a>
+                </div>
+            </li>
+                <li class="mb-2">
+                    <!-- Dark green button around Settings link -->
+                    <div class="bg-green-900 rounded-md p-2">
+                        <a class="text-white" href="{{ route('activity-report-list') }}">View Report</a>
+                    </div>
+                </li>
+            @endif
             @auth
                 <li class="mb-2">
                     <div class="bg-green-900 rounded-md p-2">

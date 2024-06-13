@@ -10,10 +10,8 @@ use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\FinalActivityReport;
 
-
 class ReportController extends Controller
 {
-    // Function to show the form and display the report on the same page
     public function showStudentAcademicReport(Request $request)
     {
         $years = Year::all();
@@ -25,21 +23,17 @@ class ReportController extends Controller
         $resultsFound = false;
 
         if ($request->isMethod('post')) {
-            // Validate the request parameters
             $request->validate([
                 'year_id' => 'required|exists:years,id',
                 'class_id' => 'required|exists:classes,id',
                 'student_id' => 'required|exists:students,id',
             ]);
 
-            // Fetch the student details
-            $student = Student::with(['class', 'school', 'year', 'exam', 'subjectResults.subject'])
+            $student = Student::with(['class', 'school', 'year', 'subjectResults.subject'])
                               ->findOrFail($request->student_id);
 
-            // Fetch the subject results for the selected student
             $subjectResults = SubjectResult::where('student_id', $request->student_id)->get();
 
-            // Check if there are any results found
             $resultsFound = $subjectResults->isNotEmpty();
         }
 
@@ -62,26 +56,22 @@ class ReportController extends Controller
     public function showClassAcademicReport(Request $request)
     {
         $years = Year::all();
-        $classes = [];
-        $students = [];
+        $classDetails = collect();
+        $students = collect();
         $resultsFound = false;
     
         if ($request->filled('year_id') && $request->filled('class_id')) {
-            // Fetch distinct classes for the selected year
             $classes = Student::where('year_id', $request->year_id)->distinct()->pluck('classes_id');
             $classDetails = ClassModel::whereIn('id', $classes)->get();
     
-            // Fetch students for the selected class
             $students = Student::where('classes_id', $request->class_id)->with('subjectResults')->get();
     
-            // Compute average marks for each student
             foreach ($students as $student) {
                 $totalMarks = $student->subjectResults->sum('marks');
                 $subjectCount = $student->subjectResults->count();
                 $student->average_marks = $subjectCount ? $totalMarks / $subjectCount : 0;
             }
     
-            // Sort students by average marks and assign rankings
             $students = $students->sortByDesc('average_marks')->values();
             foreach ($students as $index => $student) {
                 $student->ranking = $index + 1;
@@ -102,21 +92,18 @@ class ReportController extends Controller
     public function showYearAcademicReport(Request $request)
     {
         $years = Year::all();
-        $students = [];
+        $students = collect();
         $resultsFound = false;
     
         if ($request->filled('year_id')) {
-            // Fetch students for the selected year
             $students = Student::where('year_id', $request->year_id)->with('subjectResults')->get();
     
-            // Compute average marks for each student
             foreach ($students as $student) {
                 $totalMarks = $student->subjectResults->sum('marks');
                 $subjectCount = $student->subjectResults->count();
                 $student->average_marks = $subjectCount ? $totalMarks / $subjectCount : 0;
             }
     
-            // Sort students by average marks and assign rankings
             $students = $students->sortByDesc('average_marks')->values();
             foreach ($students as $index => $student) {
                 $student->ranking = $index + 1;
@@ -130,7 +117,7 @@ class ReportController extends Controller
 
     public function showActivityReportList()
     {
-        $activities = Activity::all();
+        $activity = Activity::all();
         return view('manage-report.ActivityReportList', compact('activities'));
     }
 
@@ -161,5 +148,3 @@ class ReportController extends Controller
         return redirect()->route('activity-report-list')->with('success', 'Report saved successfully');
     }
 }
-
-

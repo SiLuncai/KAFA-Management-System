@@ -1,7 +1,10 @@
 <x-app-layout>
-    <div class="container mx-auto py-8">
-        <h1 class="text-2xl font-bold mb-4">LAPORAN AKADEMIK PELAJAR</h1>
-    
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('LAPORAN AKADEMIK PELAJAR') }}
+        </h2>
+    </x-slot>
+    <div class="container mx-auto py-8">  
         <form action="{{ route('student-academic-report') }}" method="POST" id="filterForm">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">

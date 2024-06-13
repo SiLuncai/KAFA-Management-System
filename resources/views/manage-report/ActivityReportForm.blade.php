@@ -2,7 +2,7 @@
     <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold mb-6">LAPORAN AKHIR AKTIVITI</h1>
         <h2 class="text-xl mb-4">MAKLUMAT PROGRAM</h2>
-        <form action="{{ route('activity-report-store', $activity->id) }}" method="POST">
+        <form action="{{ route('activity-report-store', $activity->activityID) }}" method="POST">
             @csrf
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">NAMA PROGRAM</label>
@@ -10,11 +10,11 @@
             </div>
             <div class="mb-4">
                 <label for="date" class="block text-sm font-medium text-gray-700">TARIKH PROGRAM</label>
-                <input type="text" id="date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" value="{{ \Carbon\Carbon::parse($activity->date)->format('M d') }}" readonly>
+                <input type="text" id="date" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" value="{{ ($activity->date) }}" readonly>
             </div>
             <div class="mb-4">
                 <label for="time" class="block text-sm font-medium text-gray-700">MASA PROGRAM</label>
-                <input type="text" id="time" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" value="{{ \Carbon\Carbon::parse($activity->time)->format('h:i A') }}" readonly>
+                <input type="text" id="time" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" value="{{ ($activity->time)}}" readonly>
             </div>
             <div class="mb-4">
                 <label for="studentInvolved" class="block text-sm font-medium text-gray-700">PENGLIBATAN</label>

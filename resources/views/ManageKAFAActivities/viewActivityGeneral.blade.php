@@ -39,11 +39,12 @@
                                         <tbody>
                                         @foreach($activities as $activity)
                                             <tr>
-                                                <td class="text-white border border-gray-300 px-9 py-8">{{ $activity->activityName }}</td>
-                                                <td class="text-white border border-gray-300 px-9 py-8">{{ $activity->date }}</td>
-                                                <td class="text-white border border-gray-300 px-9 py-8">{{ $activity->time }}</td>
-                                                <td class="text-white border border-gray-300 px-9 py-8">{{ $activity->studentInvolved }}</td>
-                                                <td class="text-white border border-gray-300 px-9 py-8">{{ $activity->venue }}</td>
+                                                <td class="text-black border border-gray-300 px-9 py-8">{{ $activity->activityName }}</td>
+                                                <td class="text-black border border-gray-300 px-9 py-8">{{ $activity->date }}</td>
+                                                <td class="text-black border border-gray-300 px-9 py-8">{{ $activity->time }}</td>
+                                                <td class="text-black border border-gray-300 px-9 py-8">{{ $activity->studentInvolved }}</td>
+                                                <td class="text-black
+                                                 border border-gray-300 px-9 py-8">{{ $activity->venue }}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>

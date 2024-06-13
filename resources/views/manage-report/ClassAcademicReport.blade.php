@@ -71,7 +71,7 @@
         function fetchClasses(yearId) {
             classSelect.innerHTML = '<option value="">Pilih kelas</option>';
             if (yearId) {
-                fetch(`/get-classes/${yearId}`)
+                fetch(/get-classes/${yearId})
                     .then(response => response.json())
                     .then(data => {
                         data.forEach(classItem => {
@@ -86,4 +86,3 @@
     });
     </script>
     </x-app-layout>
-    

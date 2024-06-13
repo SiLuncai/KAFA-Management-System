@@ -14,7 +14,7 @@
 
                     <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
 
-                            <div class="bg-green-500 text-white py-2 px-4 mb-4 rounded-lg">
+                            <div class="bg-green-500 py-2 px-4 mb-4 rounded-lg">
                                 <h1 class="text-lg font-semibold">Activity Management</h1>
                             </div>
 
@@ -42,12 +42,12 @@
                                         <tbody>
                                         @foreach($activities as $activity)
                                             <tr>
-                                                <td class="text-white border border-gray-300 px-8 py-8">{{ $activity->activityName }}</td>
-                                                <td class="text-white border border-gray-300 px-8 py-8">{{ $activity->date }}</td>
-                                                <td class="text-white border border-gray-300 px-8 py-8">{{ $activity->time }}</td>
-                                                <td class="text-white border border-gray-300 px-8 py-8">{{ $activity->studentInvolved }}</td>
-                                                <td class="text-white border border-gray-300 px-8 py-8">{{ $activity->venue }}</td>
-                                                <td class="text-white border border-gray-300 px-8 py-8">
+                                                <td class="text-black border border-gray-300 px-8 py-8">{{ $activity->activityName }}</td>
+                                                <td class="text-black border border-gray-300 px-8 py-8">{{ $activity->date }}</td>
+                                                <td class="text-black border border-gray-300 px-8 py-8">{{ $activity->time }}</td>
+                                                <td class="text-black border border-gray-300 px-8 py-8">{{ $activity->studentInvolved }}</td>
+                                                <td class="text-black border border-gray-300 px-8 py-8">{{ $activity->venue }}</td>
+                                                <td class="text-black border border-gray-300 px-8 py-8">
                                                     <a href="{{ route('activity.edit', ['activity' => $activity->activityID]) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded font-size: 2px">Edit</a>
                                                     <a href="{{ route('activity.destroy', ['activity' => $activity->activityID]) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="event.preventDefault();
                                                     if(confirm('Are you sure you want to delete this activity?'))

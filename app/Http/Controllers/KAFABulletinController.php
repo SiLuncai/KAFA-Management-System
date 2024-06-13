@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
-class BulletinController extends Controller
+class KAFABulletinController extends Controller
 {
     /**
      * Display a listing of the resource.
