@@ -66,6 +66,18 @@
                     </div>
                 </li>
             @endif
+
+            @auth
+                <li class="mb-2">
+                    <div class="bg-green-900 rounded-md p-2">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="text-white">Logout</button>
+                        </form>
+                    </div>
+                </li>
+            @endauth
+
         </ul>
     </div>
 </nav>
