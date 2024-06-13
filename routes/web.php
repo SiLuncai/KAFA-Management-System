@@ -32,7 +32,7 @@ Route::get('/bulletins/create', [BulletinController::class, 'create'])->name('bu
 Route::post('/bulletins', [BulletinController::class, 'store'])->name('bulletins.store');
 
 // Show Route
-Route::get('/bulletins/{bulletinID}', [BulletinController::class, 'show'])->name('bulletins.show');
+Route::get('/bulletins/show', [BulletinController::class, 'show'])->name('bulletins.show');
 
 // Like Bulletin Route
 Route::post('/bulletins/{bulletinID}/like', [BulletinController::class, 'likeBulletin'])->name('bulletins.like');
