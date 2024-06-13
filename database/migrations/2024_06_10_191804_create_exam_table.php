@@ -9,12 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('classes', function (Blueprint $table) {
-            $table->id('classID');
-            $table->string('className');
-            $table->integer('totalStudentClass');
+        Schema::create('exam', function (Blueprint $table) {
+            $table->id();
+            $table->string('examType');
+            $table->string('updateExamStats')->default(0)->change();
             $table->timestamps();
         });
     }
@@ -22,8 +22,8 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('exam');
     }
 };

@@ -33,7 +33,7 @@
         <li class="mb-2">
             <!-- Dark green button around Student Result link -->
             <div class="bg-green-900 rounded-md p-2">
-                <a class="text-white" href="{{ route('ManageStudentResult.searchExamList') }}">Student Result</a> 
+                <a class="text-white" href="{{ route('ManageStudentResult.navigatetoExamList') }}">Student Result</a> 
             </div>
         </li>
        

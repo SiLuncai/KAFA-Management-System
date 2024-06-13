@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('years', function (Blueprint $table) {
             $table->id('yearID');
             $table->integer('year');
-            $table->integer('totalStudentYear');
             $table->integer('session');
             $table->timestamps();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('year');
+        Schema::dropIfExists('years');
     }
 };

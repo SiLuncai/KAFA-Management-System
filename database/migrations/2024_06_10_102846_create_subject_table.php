@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('subject', function (Blueprint $table) {
             $table->bigIncrements('subjectID');
             $table->string('subjectName');
+            $table->timestamps();
         });
     }
 

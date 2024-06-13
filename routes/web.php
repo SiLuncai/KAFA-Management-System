@@ -57,9 +57,22 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/ManageStudentResult', [StudentResultController::class, 'searchExamList'])->name('ManageStudentResult.searchExamList'); //nama method dkt controller
-    
+    Route::get('/ManageStudentResult', [StudentResultController::class, 'navigatetoExamList'])->name('ManageStudentResult.navigatetoExamList'); //nama method dkt controller
+    Route::get('/ManageStudentResult/insertExamResult', [StudentResultController::class, 'insertExamResult'])->name('ManageStudentResult.StudentList');
+   
 });
+
+Route::post('/ManageStudentResult', [StudentResultController::class, 'searchExamList'])->name('ExamList.searchExamList');
+
+
+//Route::get('nama page', [App\Http\Controllers\StudentResultController::class, 'function/method']);
+Route::get('try', [App\Http\Controllers\StudentResultController::class, 'index']);
+Route::get('try/create', [App\Http\Controllers\StudentResultController::class, 'create']);
+Route::post('try/create', [App\Http\Controllers\StudentResultController::class, 'store']);
+Route::get('try/{id}/edit', [App\Http\Controllers\StudentResultController::class, 'edit']);
+Route::put('try/{id}/edit', [App\Http\Controllers\StudentResultController::class, 'update']);
+Route::get('try/{id}/delete', [App\Http\Controllers\StudentResultController::class, 'destroy']);
+
 
 
 
