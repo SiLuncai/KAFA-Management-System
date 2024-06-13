@@ -4,8 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\StudentResultController;
->>>>>>>>> Temporary merge branch 2
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BulletinController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Route::get('/bulletins/create', [BulletinController::class, 'create'])->name('bu
 Route::post('/bulletins', [BulletinController::class, 'store'])->name('bulletins.store');
 
 // Show Route
-Route::get('/bulletins/show', [BulletinController::class, 'show'])->name('bulletins.show');
+Route::get('/bulletins/{bulletinID}', [BulletinController::class, 'show'])->name('bulletins.show');
 
 // Like Bulletin Route
 Route::post('/bulletins/{bulletinID}/like', [BulletinController::class, 'likeBulletin'])->name('bulletins.like');
@@ -116,7 +116,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-<<<<<<<<< Temporary merge branch 1
 //ROUTE FOR USER/TEACHER (SEE DATA)
 Route::get('/activity', [ActivityController::class, 'getData'])->name('activity.getData');
 
@@ -139,14 +138,24 @@ Route::get('/searchAdmin', [ActivityController::class, 'adminsearch'])->name('ad
 
 //ROUTE FOR USER (SEACRH DATA)
 Route::get('/searchUser', [ActivityController::class, 'usersearch'])->name('user.search');
-=========
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/ManageStudentResult', [StudentResultController::class, 'searchExamList'])->name('ManageStudentResult.searchExamList'); //nama method dkt controller
 
 });
 
 
->>>>>>>>> Temporary merge branch 2
 
+
+Route::get('/get-classes/{yearId}', [ReportController::class, 'getClassesByYear'])->name('get-classes');
+Route::get('/get-students/{classId}', [ReportController::class, 'getStudentsByClass'])->name('get-students');
+Route::match(['get', 'post'], '/student-academic-report', [ReportController::class, 'showStudentAcademicReport'])->name('student-academic-report');
+Route::match(['get', 'post'], '/class-academic-report', [ReportController::class, 'showClassAcademicReport'])->name('class-academic-report');
+Route::get('/year-academic-report', [ReportController::class, 'getYearAcademicReport'])->name('year-academic-report-get');
+Route::post('/year-academic-report', [ReportController::class, 'showYearAcademicReport'])->name('year-academic-report');
+Route::get('/activity-reports', [ReportController::class, 'showActivityReportList'])->name('activity-report-list');
+Route::get('/activity-reports/{activityId}', [ReportController::class, 'showActivityReportForm'])->name('activity-report-form');
+Route::post('/activity-reports/{activityId}', [ReportController::class, 'storeActivityReport'])->name('activity-report-store');
 
 require __DIR__.'/auth.php';
