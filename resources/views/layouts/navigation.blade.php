@@ -20,15 +20,21 @@
             <li class="mb-2">
                 <!-- Dark green button around Classroom Management link -->
                 <div class="bg-green-900 rounded-md p-2">
-                    <a class="text-white" href="{{ route('activity.getData') }}">Manage Activity</a>
+                    <a class="text-white" href="{{ route('activity.getData') }}">Activity</a>
                 </div>
             </li>
             <li class="mb-2">
-                    <!-- Dark green button around Bulletin link -->
-                    <div class="bg-green-900 rounded-md p-2">
-                        <a class="text-white" href="{{ route('bulletins.show') }}">Bulletin</a>
-                    </div>
-                </li>
+                <!-- Dark green button around Bulletin link -->
+                <div class="bg-green-900 rounded-md p-2">
+                    <a class="text-white" href="{{ route('bulletins.show') }}">Bulletin</a>
+                </div>
+            </li>
+            <li class="mb-2">
+                <!-- Dark green button around Bulletin link -->
+                <div class="bg-green-900 rounded-md p-2">
+                    <a class="text-white" href="{{ route('checkSlip') }}">Result</a>
+                </div>
+            </li>
             @endif
 
             @if (Auth::check() && Auth::user()->role === 'admin')
@@ -63,6 +69,12 @@
                     <!-- Dark green button around Lesson Plans link -->
                     <div class="bg-green-900 rounded-md p-2">
                         <a class="text-white" href="{{ route('bulletins.index') }}">Manage Bulletin</a>
+                    </div>
+                </li>
+                <li class="mb-2">
+                    <!-- Dark green button around Bulletin link -->
+                    <div class="bg-green-900 rounded-md p-2">
+                        <a class="text-white" href="{{ route('try.index') }}">Manage Result</a>
                     </div>
                 </li>
             @endif

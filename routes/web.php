@@ -56,32 +56,6 @@ Route::post('/bulletins/{bulletinID}/like', [BulletinController::class, 'likeBul
 Route::post('/bulletins/{bulletinID}/comment', [BulletinController::class, 'commentBulletin'])->name('bulletins.comment');
 
 
-
-Route::get('/CheckSlip', function () {
-    return view('ManageStudentResult.CheckSlip');
-});
-
-Route::get('/ExamList', function () {
-    return view('ManageStudentResult.ExamList');
-});
-
-Route::get('/StudentList', function () {
-    return view('ManageStudentResult.StudentList');
-});
-
-Route::get('/ChooseExam', function () {
-    return view('ManageStudentResult.ChooseExam');
-});
-
-Route::get('/ExamSlip', function () {
-    return view('ManageStudentResult.ExamSlip');
-});
-
-Route::get('/example', function () {
-    return view('ManageStudentResult.example');
-});
-
-
 Route::get('/StudentAcademicReport', function () {
     return view('manage-report.StudentAcademicReport');
 });
@@ -146,9 +120,29 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/ManageStudentResult', [StudentResultController::class, 'searchExamList'])->name('ManageStudentResult.searchExamList'); //nama method dkt controller
 
+Route::get('/CheckSlip', function () {
+    return view('ManageStudentResult.CheckSlip');
+})->name('checkSlip');
+
+Route::get('/StudentList', function () {
+    return view('ManageStudentResult.StudentList');
+});
+
+Route::get('/ChooseExam', function () {
+    return view('ManageStudentResult.ChooseExam');
+})->name('chooseExam');
+
+Route::get('/ExamSlip', function () {
+    return view('ManageStudentResult.ExamSlip');
+})->name('examSlip');
+
+Route::get('/example', function () {
+    return view('ManageStudentResult.example');
+});
+
 //Route::get('nama page', [App\Http\Controllers\StudentResultController::class, 'function/method']);
-Route::get('try', [App\Http\Controllers\StudentResultController::class, 'index']);
-Route::get('try/create', [App\Http\Controllers\StudentResultController::class, 'create']);
+Route::get('try', [App\Http\Controllers\StudentResultController::class, 'index'])->name('try.index');
+Route::get('try/create', [App\Http\Controllers\StudentResultController::class, 'create'])->name('try.create');
 Route::post('try/create', [App\Http\Controllers\StudentResultController::class, 'store']);
 Route::get('try/{id}/edit', [App\Http\Controllers\StudentResultController::class, 'edit']);
 Route::put('try/{id}/edit', [App\Http\Controllers\StudentResultController::class, 'update']);

@@ -62,9 +62,11 @@
 
                     </div>
 
-                    <div class="flex justify-center">
-                        <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus-shadow-outline">SEMAK</button>
-                    </div>
+                    <td class="px-1 py-1 whitespace-no-wrap flex justify-center">
+                        <form action="{{ route('examSlip') }}">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Semak</button>
+                        </form>                                
+                    </td>
                 </div>
             </div>
         </div>

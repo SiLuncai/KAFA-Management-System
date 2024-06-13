@@ -48,7 +48,9 @@
                                 </select>
                             </div>
                             <div class="text-center">
-                                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Papar Slip Keputusan</button>
+                                <form action="{{ route('examSlip') }}">
+                                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Papar Slip Keputusan</button>
+                                </form> 
                             </div>
                         </div>
                     </div>
