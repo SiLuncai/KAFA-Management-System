@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\StudentResultController;
+>>>>>>>>> Temporary merge branch 2
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +21,41 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Index Route
+Route::get('/bulletins', [BulletinController::class, 'index'])->name('bulletins.index');
+
+// Create Route
+Route::get('/bulletins/create', [BulletinController::class, 'create'])->name('bulletins.create');
+
+// Store Route
+Route::post('/bulletins', [BulletinController::class, 'store'])->name('bulletins.store');
+
+// Show Route
+Route::get('/bulletins/show', [BulletinController::class, 'show'])->name('bulletins.show');
+
+// Like Bulletin Route
+Route::post('/bulletins/{bulletinID}/like', [BulletinController::class, 'likeBulletin'])->name('bulletins.like');
+
+// Comment Bulletin Route
+Route::post('/bulletins/{bulletinID}/comment', [BulletinController::class, 'commentBulletin'])->name('bulletins.comment');
+
+// Edit Bulletin Route
+Route::get('/bulletins/edit/{bulletin}', [BulletinController::class, 'edit'])->name('bulletins.edit');
+
+// Update Bulletin Route
+Route::post('/bulletins/{bulletinID}', [BulletinController::class, 'update'])->name('bulletins.update');
+
+// Delete Bulletin Route
+Route::delete('/bulletins/{bulletin}', [BulletinController::class, 'destroy'])->name('bulletins.destroy');
+
+// Like Bulletin Route
+Route::post('/bulletins/{bulletinID}/like', [BulletinController::class, 'likeBulletin'])->name('bulletins.like');
+
+// Comment Bulletin Route
+Route::post('/bulletins/{bulletinID}/comment', [BulletinController::class, 'commentBulletin'])->name('bulletins.comment');
+
+
 
 Route::get('/CheckSlip', function () {
     return view('ManageStudentResult.CheckSlip');
@@ -47,6 +84,28 @@ Route::get('/example', function () {
 
 
 
+Route::get('/StudentAcademicReport', function () {
+    return view('manage-report.StudentAcademicReport');
+});
+
+Route::get('/ClassAcademicReport', function () {
+    return view('manage-report.ClassAcademicReport');
+});
+
+Route::get('/YearAcademicReport', function () {
+    return view('manage-report.YearAcademicReport');
+});
+
+Route::get('/ActivityReportList', [ReportController::class, 'index']);
+
+Route::get('/ActivityReport', function () {
+    return view('manage-report.ActivityReport');
+});
+
+Route::get('/ActivityReportForm', function () {
+    return view('manage-report.ActivityReportForm');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -57,7 +116,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//ROUTE FOR USER/TEACHER/MUIP (SEE DATA)
+<<<<<<<<< Temporary merge branch 1
+//ROUTE FOR USER/TEACHER (SEE DATA)
 Route::get('/activity', [ActivityController::class, 'getData'])->name('activity.getData');
 
 //ROUTE FOR ADMIN (SEE DATA)
@@ -79,6 +139,14 @@ Route::get('/searchAdmin', [ActivityController::class, 'adminsearch'])->name('ad
 
 //ROUTE FOR USER (SEACRH DATA)
 Route::get('/searchUser', [ActivityController::class, 'usersearch'])->name('user.search');
+=========
+Route::middleware('auth')->group(function () {
+    Route::get('/ManageStudentResult', [StudentResultController::class, 'searchExamList'])->name('ManageStudentResult.searchExamList'); //nama method dkt controller
+
+});
+
+
+>>>>>>>>> Temporary merge branch 2
 
 
 require __DIR__.'/auth.php';

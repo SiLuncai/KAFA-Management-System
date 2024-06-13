@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bulletins', function (Blueprint $table) {
-            $table->id('bulletinID'); // Unique ID for bulletin
-            $table->string('titleBulletin'); // Title of the bulletin
-            $table->string('descBulletin'); // Description of the bulletin
-            $table->integer('like')->default(0); // Counter for like button
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('bulletin_id')->constrained('bulletins', 'bulletinID')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->text('comment');
             $table->timestamps();
-
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bulletins');
+        Schema::dropIfExists('comments');
     }
 };

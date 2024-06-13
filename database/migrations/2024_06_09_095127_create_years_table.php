@@ -4,28 +4,32 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateYearsTable extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('years', function (Blueprint $table) {
-            $table->id('yearID');
-            $table->integer('year');
+            $table->id();
+            $table->string('name');
             $table->integer('totalStudentYear');
             $table->integer('session');
             $table->timestamps();
         });
     }
 
-
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('year');
+        Schema::dropIfExists('years');
     }
-};
+}
+

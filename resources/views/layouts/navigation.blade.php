@@ -1,22 +1,20 @@
-<!-- navigation.blade.php -->
-
-<nav class=" sticky top-0 bg-green-500 shadow-lg min-h-screen">
+<nav class="sticky top-0 bg-green-500 shadow-lg min-h-screen">
     <div class="sticky top-0">
-    <!-- Logo (centered) -->
-    <div>
-        <a href="/">
-            <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-        </a>
-    </div>
+        <!-- Logo (centered) -->
+        <div class="flex justify-center py-4">
+            <a href="/">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            </a>
+        </div>
 
-    <!-- Links -->
-    <ul class="p-4">
-        <li class="mb-2">
-            <!-- Dark green button around Dashboard link -->
-            <div class="bg-green-900 rounded-md p-2">
-                <a class="text-white" href="{{ route('dashboard') }}">Dashboard</a>
-            </div>
-        </li>
+        <!-- Links -->
+        <ul class="p-4">
+            <li class="mb-2">
+                <!-- Dark green button around Dashboard link -->
+                <div class="bg-green-900 rounded-md p-2">
+                    <a class="text-white" href="{{ route('dashboard') }}">Dashboard</a>
+                </div>
+            </li>
 
         <li class="mb-2">
             <!-- Dark green button around Profile link -->
@@ -33,7 +31,7 @@
         <li class="mb-2">
             <!-- Dark green button around Student Result link -->
             <div class="bg-green-900 rounded-md p-2">
-                <a class="text-white" href="#">Student Result</a>
+                <a class="text-white" href="{{ route('ManageStudentResult.searchExamList') }}">Student Result</a>
             </div>
         </li>
 
