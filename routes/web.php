@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//ROUTE FOR USER/TEACHER (SEE DATA)
+//ROUTE FOR USER/TEACHER/MUIP (SEE DATA)
 Route::get('/activity', [ActivityController::class, 'getData'])->name('activity.getData');
 
 //ROUTE FOR ADMIN (SEE DATA)

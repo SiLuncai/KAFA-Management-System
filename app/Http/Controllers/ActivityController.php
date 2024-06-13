@@ -14,7 +14,7 @@ class ActivityController extends Controller
         $activities = Activity::all();
 
         // Pass the activities data to the view
-        return view('manageactivities.activity', compact('activities'));
+        return view('ManageKAFAActivities.viewActivityGeneral', compact('activities'));
     }
 
     public function getDataAdmin()
@@ -23,12 +23,12 @@ class ActivityController extends Controller
         $activities = Activity::all();
 
         // Pass the activities data to the view
-        return view('manageactivities.activityadmin', compact('activities'));
+        return view('ManageKAFAActivities.ActivityList', compact('activities'));
     }
 
     public function create()
     {
-        return view('manageactivities.create');
+        return view('ManageKAFAActivites.addActivity');
     }
 
     public function store(Request $request)
@@ -49,7 +49,7 @@ class ActivityController extends Controller
     public function edit($activity)
     {
         $activityDetail = Activity::find($activity);
-        return view('manageactivities.edit', compact('activityDetail'));
+        return view('ManageKAFAActivities.editActivity', compact('activityDetail'));
     }
 
     public function update(Request $request, $activityID)
@@ -84,7 +84,7 @@ class ActivityController extends Controller
             return $query->where('activityName', 'like', '%' . $search . '%');
         })->get();
 
-        return view('manageActivities.searchAdmin', ['activities' => $activities]);
+        return view('ManageKAFAActivities.searchAdmin', ['activities' => $activities]);
 
     }
 
@@ -96,7 +96,7 @@ class ActivityController extends Controller
             return $query->where('activityName', 'like', '%' . $search . '%');
         })->get();
 
-        return view('manageActivities.searchUser', ['activities' => $activities]);
+        return view('ManageKAFAActivities.searchUser', ['activities' => $activities]);
 
     }
 
