@@ -23,7 +23,7 @@ class BulletinController extends Controller
 
     public function create()
     {
-        
+
             $userID = auth()->user()->id;
             return view('manageBulletin.createBulletin', compact('userID'));
     }
@@ -37,7 +37,7 @@ class BulletinController extends Controller
                 'titleBulletin' => 'required|string',
                 'descBulletin' => 'required|string',
             ]);
-    
+
             Bulletin::create($request->all());
 
             return redirect()->route('bulletins.index')->with('success', 'Bulletin created successfully');
@@ -46,20 +46,20 @@ class BulletinController extends Controller
     public function show()
     {
         $bulletins = Bulletin::all();
-    
+
         return view('manageBulletin.viewBulletin', compact('bulletins'));
     }
 
     public function edit($Bulletin)
     {
-        $bulletins = Bulletin::find($Bulletin);   
+        $bulletins = Bulletin::find($Bulletin);
         return view('manageBulletin.editBulletin', compact('bulletins'));
 
     }
 
     public function update(Request $request, $bulletinID)
     {
-        $bulletins = Bulletin::find($bulletinID);  
+        $bulletins = Bulletin::find($bulletinID);
         $bulletins->update($request->all());
         return redirect()->route('bulletins.index')->with('success', 'Bulletin updated successfully');
     }
