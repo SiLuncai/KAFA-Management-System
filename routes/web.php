@@ -82,8 +82,6 @@ Route::get('/example', function () {
 });
 
 
-
-
 Route::get('/StudentAcademicReport', function () {
     return view('manage-report.StudentAcademicReport');
 });
@@ -141,21 +139,20 @@ Route::get('/searchUser', [ActivityController::class, 'usersearch'])->name('user
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/ManageStudentResult', [StudentResultController::class, 'searchExamList'])->name('ManageStudentResult.searchExamList'); //nama method dkt controller
-
+    Route::get('/ManageStudentResult', [StudentResultController::class, 'navigatetoExamList'])->name('ManageStudentResult.navigatetoExamList'); //nama method dkt controller
+    Route::get('/ManageStudentResult/insertExamResult', [StudentResultController::class, 'insertExamResult'])->name('ManageStudentResult.StudentList');
+   
 });
 
+Route::get('/ManageStudentResult', [StudentResultController::class, 'searchExamList'])->name('ManageStudentResult.searchExamList'); //nama method dkt controller
 
+//Route::get('nama page', [App\Http\Controllers\StudentResultController::class, 'function/method']);
+Route::get('try', [App\Http\Controllers\StudentResultController::class, 'index']);
+Route::get('try/create', [App\Http\Controllers\StudentResultController::class, 'create']);
+Route::post('try/create', [App\Http\Controllers\StudentResultController::class, 'store']);
+Route::get('try/{id}/edit', [App\Http\Controllers\StudentResultController::class, 'edit']);
+Route::put('try/{id}/edit', [App\Http\Controllers\StudentResultController::class, 'update']);
+Route::get('try/{id}/delete', [App\Http\Controllers\StudentResultController::class, 'destroy']);
 
-
-Route::get('/get-classes/{yearId}', [ReportController::class, 'getClassesByYear'])->name('get-classes');
-Route::get('/get-students/{classId}', [ReportController::class, 'getStudentsByClass'])->name('get-students');
-Route::match(['get', 'post'], '/student-academic-report', [ReportController::class, 'showStudentAcademicReport'])->name('student-academic-report');
-Route::match(['get', 'post'], '/class-academic-report', [ReportController::class, 'showClassAcademicReport'])->name('class-academic-report');
-Route::get('/year-academic-report', [ReportController::class, 'getYearAcademicReport'])->name('year-academic-report-get');
-Route::post('/year-academic-report', [ReportController::class, 'showYearAcademicReport'])->name('year-academic-report');
-Route::get('/activity-reports', [ReportController::class, 'showActivityReportList'])->name('activity-report-list');
-Route::get('/activity-reports/{activityId}', [ReportController::class, 'showActivityReportForm'])->name('activity-report-form');
-Route::post('/activity-reports/{activityId}', [ReportController::class, 'storeActivityReport'])->name('activity-report-store');
 
 require __DIR__.'/auth.php';
