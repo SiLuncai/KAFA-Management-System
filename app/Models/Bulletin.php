@@ -13,7 +13,6 @@ class Bulletin extends Model
         protected $primaryKey = 'bulletinID'; // Set the primary key to 'bulletinID'
 
         protected $fillable = [
-            'teacherID',
             'titleBulletin',
             'descBulletin',
             'comment',

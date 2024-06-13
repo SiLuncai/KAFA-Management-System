@@ -13,18 +13,20 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
-                            <label for="titleBulletin" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="titleBulletin" name="titleBulletin" value="{{ $bulletins->titleBulletin }}">
+                            <x-input-label for="titleBulletin" :value="__('Bulletin Title')" />
+                            <x-text-input id="titleBulletin" name="titleBulletin" type="text" class="mt-1 block w-full"/>
+                            <x-input-error class="mt-2" :messages="$errors->get('titleBulletin')" />
                         </div>
                         <div class="mb-3">
-                            <label for="descBulletin" class="form-label">Description</label>
-                            <textarea class="form-control" id="descBulletin" name="descBulletin">{{ $bulletins->descBulletin }}</textarea>
+                            <x-input-label for="descBulletin" :value="__('Bulletin Description')" />
+                            <x-text-input id="descBulletin" name="descBulletin" type="text" class="mt-1 block w-full"/>
+                            <x-input-error class="mt-2" :messages="$errors->get('descBulletin')" />
                         </div>
-                        <!-- Add input fields for other bulletin details -->
+
                         <form action="{{ route('bulletins.update', ['bulletinID' => $bulletins->bulletinID]) }}" method="POST">
                             @csrf
                             @method('post')
-                            <!-- Your form fields here -->
+
                             <x-primary-button>{{ __('Update') }}</x-primary-button>
                         </form>
                     </form>

@@ -23,33 +23,31 @@ class BulletinController extends Controller
 
     public function create()
     {
-        if ($this->isTeacher()) {
+        
             $userID = auth()->user()->id;
             return view('manageBulletin.createBulletin', compact('userID'));
-        } else {
-            return $this->unauthorizedResponse();
-        }
     }
 
     public function store(Request $request)
     {
-        if ($this->isTeacher()) {
-            $validatedData = $this->validateBulletinData($request);
 
             $validatedData['userID'] = auth()->user()->id;
 
-            Bulletin::create($validatedData);
+            $request->validate([
+                'titleBulletin' => 'required|string',
+                'descBulletin' => 'required|string',
+            ]);
+    
+            Bulletin::create($request->all());
 
             return redirect()->route('bulletins.index')->with('success', 'Bulletin created successfully');
-        } else {
-            return $this->unauthorizedResponse();
-        }
     }
 
-    public function show($Bulletin)
+    public function show()
     {
-        $bulletins = Bulletin::findOrFail($Bulletin);
-        return view('manageBulletin.viewBulletin', compact('bulletin'));
+        $bulletins = Bulletin::all();
+    
+        return view('manageBulletin.viewBulletin', compact('bulletins'));
     }
 
     public function edit($Bulletin)
