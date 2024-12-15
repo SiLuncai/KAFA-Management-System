@@ -2,11 +2,11 @@
     <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold mb-6">LAPORAN AKHIR AKTIVITI</h1>
         <h2 class="text-xl mb-4">MAKLUMAT PROGRAM</h2>
-        <form action="{{ route('activity-report-store', $activity->activityID) }}" method="POST">
+        <form action="{{ route('activities.store') }}" method="POST">
             @csrf
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">NAMA PROGRAM</label>
-                <input type="text" id="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" value="{{ $activity->name }}" readonly>
+                <input type="text" id="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" value="{{ $activity->activityName }}" readonly>
             </div>
             <div class="mb-4">
                 <label for="date" class="block text-sm font-medium text-gray-700">TARIKH PROGRAM</label>

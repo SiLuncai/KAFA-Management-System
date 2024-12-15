@@ -12,7 +12,7 @@ class CreateActivityTable extends Migration
     public function up(): void
     {
         Schema::create('activity', function (Blueprint $table) {
-            $table->id('activityID')->nullable();
+            $table->id('activityID');
             $table->string('activityName')->nullable();
             $table->date('date')->nullable();
             $table->time('time')->nullable();
